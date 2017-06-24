@@ -2888,6 +2888,8 @@ stops -1
 stout 2
 straight 1
 strange -1
+stranger -1
+strangers -1
 strangely -1
 strangled -2
 strength 2

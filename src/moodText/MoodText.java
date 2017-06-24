@@ -59,36 +59,35 @@ public class MoodText {
 			double absTotal=0;
 			lines: while ((wholeLine=br.readLine())!=null){
 		        String parsedLine = wholeLine.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
-				String[] split = parsedLine.split(" ");
+				parsedLine = parsedLine.toLowerCase();
+		        String[] words = parsedLine.split(" ");
 			//	System.out.println(parsedLine);
-				
+		        
+		        
+				int negate = 1;
 				//first one to count gets negate
-				phrases: for(int r=0;r<split.length;r++){
-					double perphraseSum = 0;
-					String [] key = split[r].split(" ");
-					boolean containedKey=false;
+				phrases: for(int r=0;r<words.length;r++){
+					double perphraseSum = 0;					
+
 					
-					int negate = 1;
-					words: for(int c=0;c<key.length;c++){
-						if (negateWords.contains(key[c])){
-							System.out.print("here");
-							negate = -1;
-						}
-						if (wordBank.containsKey(key[c])){
-							System.out.println(key[c]);
-							absTotal = absTotal + Math.abs(wordBank.get(key[c]));
-							perphraseSum = (perphraseSum + wordBank.get(key[c]))*negate;
-							if (negate == -1) negate = 1;
-							System.out.println("("+ perphraseSum +")");
-							containedKey=true;
-						}
+					
+					if (negateWords.contains(words[r])){
+						System.out.println("N: " + words[r]);
+						negate = -1;
 					}
-					if (containedKey){
-						//System.out.println("phrase sum" + phraseSum);
+					else if (wordBank.containsKey(words[r])){
+						System.out.println("M: " + words[r]);
+
+						double wordRating = wordBank.get(words[r]);
+						absTotal = absTotal + Math.abs(wordRating);
+						perphraseSum = perphraseSum + wordRating*negate;
+						if (negate == -1) negate = 1;
 						phraseSum.add(perphraseSum);
 					}
-				}
+					else System.out.println(words[r]);
+
 				
+				}
 			}
 			double total=0;
 			for(double r : phraseSum){
