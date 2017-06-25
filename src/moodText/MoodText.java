@@ -1,7 +1,6 @@
 package moodText;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -46,7 +45,6 @@ public class MoodText {
 	public static void main(String[] args) {
 		Map <String, Integer> wordBank = loadWordBank();
 		
-		double averageRating = 0;
 		FileReader fr;
 		
 		try {
@@ -76,15 +74,15 @@ public class MoodText {
 						negate = -1;
 					}
 					else if (wordBank.containsKey(words[r])){
-						System.out.println("M: " + words[r]);
+						double wordRating = wordBank.get(words[r])*negate;
 
-						double wordRating = wordBank.get(words[r]);
+						System.out.println("M: " + words[r] + wordRating);
+
 						absTotal = absTotal + Math.abs(wordRating);
-						perphraseSum = perphraseSum + wordRating*negate;
+						perphraseSum = perphraseSum + wordRating;
 						if (negate == -1) negate = 1;
 						phraseSum.add(perphraseSum);
 					}
-					else System.out.println(words[r]);
 
 				
 				}
@@ -93,9 +91,8 @@ public class MoodText {
 			for(double r : phraseSum){
 				total = total + r;
 			}
-
+			System.out.println(total);
 			System.out.println(total/absTotal);
-	//not, never,	
 			
 
 		} catch (FileNotFoundException e) {
