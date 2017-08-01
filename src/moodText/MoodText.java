@@ -4,14 +4,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+enum MOOD {POSITIVE,NEGATIVE,NEUTRAL};
 public class MoodText {
-
+	static MOOD mood = MOOD.NEUTRAL;
 	public static Map<String, Integer> loadWordBank(){
 		Map <String,Integer> loadingMap = new HashMap<String,Integer>();
 		
@@ -42,6 +43,37 @@ public class MoodText {
 		return loadingMap;
 	}
 	
+	public static void openSpotify(MOOD pm){
+		String fs = System.getProperty("file.separator");
+		String exeCommand = "C:"
+				+ fs + "Users" 
+				+ fs + "andrewseto" 
+				+ fs + "AppData" 
+				+ fs + "Roaming"
+				+ fs + "Spotify" 
+				+ fs + "Spotify.exe";
+
+		try {
+			Process p = Runtime.getRuntime().exec(exeCommand);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		switch (pm){
+			case POSITIVE:
+				break;
+			case NEGATIVE:
+				break;
+			case NEUTRAL:
+				break;
+			default:
+				break;
+		}
+			
+	
+			
+	}
+	
 	public static void main(String[] args) {
 		Map <String, Integer> wordBank = loadWordBank();
 		
@@ -59,7 +91,6 @@ public class MoodText {
 		        String parsedLine = wholeLine.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
 				parsedLine = parsedLine.toLowerCase();
 		        String[] words = parsedLine.split(" ");
-			//	System.out.println(parsedLine);
 		        
 		        
 				int negate = 1;
@@ -91,9 +122,21 @@ public class MoodText {
 			for(double r : phraseSum){
 				total = total + r;
 			}
-			System.out.println(total);
-			System.out.println(total/absTotal);
-			
+			double score = total/absTotal;
+			System.out.println(score);
+			if (score<-0.25) {
+				System.out.println("NEGATIVE");
+				openSpotify(MOOD.NEGATIVE);
+			}
+			else if (score>0.25){
+				System.out.println("POSITIVE");
+				openSpotify(MOOD.POSITIVE);
+
+			}
+			else {
+				System.out.println("NEUTRAL");
+				openSpotify(MOOD.NEUTRAL);
+			}
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
