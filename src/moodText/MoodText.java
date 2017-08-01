@@ -48,33 +48,39 @@ public class MoodText {
 		String header = "C:"
 				+ fs + "Users" 
 				+ fs + "andrewseto";
-		String exeCommand = 
-				header  
+		String vbs = header
+				+ fs + "workspace" 
+				+ fs + "moodtext" 
+				+ fs + "src"
+				+ fs + "res" + fs;
+		String exeCommand = header  
 				+ fs + "AppData" 
 				+ fs + "Roaming"
 				+ fs + "Spotify" 
 				+ fs + "Spotify.exe";
-		String vbs = 
-				header
-				+ fs + "workspace" 
-				+ fs + "moodtext"
-				+ fs + "spotify.vbs";
-		String [] command = {exeCommand,vbs};
+		String positivevbs = vbs + "positive.vbs";
+		String negativevbs = vbs + "negative.vbs";
+		String neutralvbs = vbs + "neutral.vbs";
+		String [] command = null;
+		switch (pm){
+			case POSITIVE:
+				 command = new String[] {exeCommand,positivevbs};
+				break;
+			case NEGATIVE:
+				 command = new String[] {exeCommand,negativevbs};
+				break;
+			case NEUTRAL:
+				 command = new String[] {exeCommand,neutralvbs};
+				break;
+			default:
+				System.err.println("Error");
+				break;
+		}
 		try {
 			Process p = Runtime.getRuntime().exec(command);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		switch (pm){
-			case POSITIVE:
-				break;
-			case NEGATIVE:
-				break;
-			case NEUTRAL:
-				break;
-			default:
-				break;
 		}
 			
 	
@@ -87,7 +93,6 @@ public class MoodText {
 		FileReader fr;
 		
 		try {
-			
 			fr = new FileReader("story.txt");
 			BufferedReader br = new BufferedReader (fr);
 			String wholeLine;
