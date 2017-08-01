@@ -45,16 +45,23 @@ public class MoodText {
 	
 	public static void openSpotify(MOOD pm){
 		String fs = System.getProperty("file.separator");
-		String exeCommand = "C:"
+		String header = "C:"
 				+ fs + "Users" 
-				+ fs + "andrewseto" 
+				+ fs + "andrewseto";
+		String exeCommand = 
+				header  
 				+ fs + "AppData" 
 				+ fs + "Roaming"
 				+ fs + "Spotify" 
 				+ fs + "Spotify.exe";
-
+		String vbs = 
+				header
+				+ fs + "workspace" 
+				+ fs + "moodtext"
+				+ fs + "spotify.vbs";
+		String [] command = {exeCommand,vbs};
 		try {
-			Process p = Runtime.getRuntime().exec(exeCommand);
+			Process p = Runtime.getRuntime().exec(command);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
