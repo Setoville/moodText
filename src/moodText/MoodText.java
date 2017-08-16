@@ -136,6 +136,29 @@ public class MoodText {
 		
 		
 	}
+	public static List<String> getWordsFromWeb(String phrase){
+		
+		String [] words = parseLine(phrase);
+		
+		return stringArrayToList(words);
+
+	}
+	public static String[] parseLine(String rawLine){
+        String parsedLine = rawLine.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
+		parsedLine = parsedLine.toLowerCase();
+        String[] words = parsedLine.split(" ");
+        return words;
+	}
+	
+	public static List<String> stringArrayToList (String[] strarray) {
+		List <String> tempWholeListOfWords = new ArrayList <String>();
+		for(int r=0;r<strarray.length;r++){
+			tempWholeListOfWords.add(strarray[r]);
+		}
+
+		
+		return tempWholeListOfWords;
+	}
 	
 	private static List<String> getWordsFromFile(String stringfile) {
 		
@@ -143,14 +166,11 @@ public class MoodText {
 		FileReader fr;			
 		String wholeLine;
 
-		
 		try {
 			fr = new FileReader(stringfile);
 			BufferedReader br = new BufferedReader (fr);
 			while ((wholeLine=br.readLine())!=null){
-		        String parsedLine = wholeLine.replaceAll("[^a-zA-Z\\s]", "").replaceAll("\\s+", " ");
-				parsedLine = parsedLine.toLowerCase();
-		        String[] words = parsedLine.split(" ");
+				String[] words = parseLine(wholeLine);
 				for(int r=0;r<words.length;r++){
 					wholeListOfWords.add(words[r]);
 				}
@@ -179,8 +199,8 @@ public class MoodText {
 			openSpotify(getEmotion(wholeListOfWords));
 		}
 		else if (args[0].equals("2")){
-			wholeListOfWords=getWordsFromFile("story.txt");
-			openSpotify(getEmotion(wholeListOfWords));
+			Handler webHandler = new Handler();
+			webHandler.start();
 		}
 		else if (args[0].equals("3")){
 			
