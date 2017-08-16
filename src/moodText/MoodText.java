@@ -122,18 +122,15 @@ public class MoodText {
 		System.out.println(score);
 		if (score<-0.25) {
 			System.out.println("NEGATIVE");
-		//	openSpotify(MOOD.NEGATIVE);
 			return MOOD.NEGATIVE;
 		}
 		else if (score>0.25){
 			System.out.println("POSITIVE");
-		//	openSpotify(MOOD.POSITIVE);
 			return MOOD.POSITIVE;
 
 		}
 		else {
 			System.out.println("NEUTRAL");
-		//	openSpotify(MOOD.NEUTRAL);
 			return MOOD.NEUTRAL;
 		}
 		
@@ -168,18 +165,6 @@ public class MoodText {
 	}
 	
 	
-	public static MOOD start () {
-		List <String> wholeListOfWords = getWordsFromFile("story.txt");
-		getEmotion(wholeListOfWords);
-		
-
-		return MOOD.NEUTRAL;
-
-		
-		
-		
-
-	}
 
 
 
@@ -188,11 +173,14 @@ public class MoodText {
 		System.out.println("Mode = 1. Text -> music");
 		System.out.println("2. Web -> music");
 		System.out.println("3. Web -> web (API)");
+		List <String> wholeListOfWords;
 		if (args[0].equals("1")){
-			MoodText.start();
+			wholeListOfWords=getWordsFromFile("story.txt");
+			openSpotify(getEmotion(wholeListOfWords));
 		}
 		else if (args[0].equals("2")){
-			//Handler webHandler = new Handler();
+			wholeListOfWords=getWordsFromFile("story.txt");
+			openSpotify(getEmotion(wholeListOfWords));
 		}
 		else if (args[0].equals("3")){
 			
