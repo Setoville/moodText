@@ -15,6 +15,7 @@ class Handler implements HttpHandler {
 	    HttpServer server=null;
 		try {
 			server = HttpServer.create(new InetSocketAddress(8000), 0);
+			System.out.println("server live..");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -29,16 +30,16 @@ class Handler implements HttpHandler {
 
 	public void handle(HttpExchange t) throws IOException {
 		
-		String query=t.getRequestURI().getQuery();
+		String query=t.getRequestURI().getQuery().toString();
+		//System.out.println(query);
+		MOOD response = MoodText.getEmotion(MoodText.getWordsFromWeb(query));
 		
-		MoodText.start(query);
-
-		String response = "hello";
-		t.sendResponseHeaders(200, response.length());
+		
+		
+		t.sendResponseHeaders(200, response.toString().length());
 		OutputStream os = t.getResponseBody();
 		
-		//if (query.contains("butts")){
-		os.write(response.getBytes());
+		os.write(response.toString().getBytes());
 		
 		
 

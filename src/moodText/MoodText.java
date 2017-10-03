@@ -192,7 +192,7 @@ public class MoodText {
 	public static void main(String[] args) {
 		System.out.println("Mode = 1. Text -> music");
 		System.out.println("2. Web -> music");
-		System.out.println("3. Web -> web (API)");
+		System.out.println("3. Web -> web");
 		List <String> wholeListOfWords;
 		if (args[0].equals("1")){
 			wholeListOfWords=getWordsFromFile("story.txt");
@@ -202,10 +202,7 @@ public class MoodText {
 			Handler webHandler = new Handler();
 			webHandler.start();
 		}
-		else if (args[0].equals("3")){
-			
-		}
-			
+
 		
 	
 
